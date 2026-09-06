@@ -201,7 +201,7 @@ end
 
 def layout(p)
   root = p[:root] || ""
-  canonical = "#{SITE}/#{p[:file]}"
+  canonical = "#{SITE}/#{p[:file] == %q(index.html) ? %q() : p[:file]}"
   og_image = "#{SITE}/assets/img/#{p[:og] || 'matthijs-van-meurs-portret.jpg'}"
   <<~HTML
     <!DOCTYPE html>

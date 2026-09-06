@@ -39,7 +39,10 @@ eerste editie klaarligt.
 De site staat op GitHub en wordt automatisch gepubliceerd via GitHub Pages.
 
 - Repository: https://github.com/mvmnl/matthijsvanmeurs.nl (openbaar, branch `main`)
-- Live adres: https://mvmnl.github.io/matthijsvanmeurs.nl/
+- Live adres: https://www.matthijsvanmeurs.nl
+  - matthijsvanmeurs.nl zonder www stuurt automatisch door naar www
+  - Reserveadres: https://mvmnl.github.io/matthijsvanmeurs.nl/
+  - Het bestand CNAME in de hoofdmap bepaalt het domein. Niet verwijderen.
 
 Wijziging publiceren:
 ```
@@ -50,9 +53,9 @@ git push
 Binnen een minuut staat het online. Vergeet niet eerst de bouwscripts te draaien
 als je teksten in `bronbestanden/build/` hebt aangepast.
 
-Eigen domein koppelen: zet een bestand `CNAME` in de hoofdmap met daarin
-`www.matthijsvanmeurs.nl`, en wijs bij je domeinprovider een CNAME-record
-van `www` naar `mvmnl.github.io`.
+DNS staat bij TransIP: vier A-records en vier AAAA-records op @ naar GitHub,
+  en www als CNAME naar mvmnl.github.io. De e-mailrecords (MX, SPF, DKIM, DMARC)
+  staan los daarvan en horen bij TransIP.
 
 ## Lokaal bekijken
 ```

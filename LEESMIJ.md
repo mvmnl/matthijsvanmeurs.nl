@@ -36,13 +36,18 @@ eerste editie klaarligt.
 
 
 ## Online zetten
-De site staat op GitHub en wordt automatisch gepubliceerd via GitHub Pages.
+Op dit moment wordt ALLEEN de map `onepager/` gepubliceerd. De volledige site
+staat wel in deze repository, maar is niet online. Dat regelt het bestand
+`.github/workflows/publiceer.yml`.
+
+Wil je de volledige site publiceren in plaats van de onepager, verander dan in dat
+bestand `path: ./onepager` in `path: .` en push die wijziging.
 
 - Repository: https://github.com/mvmnl/matthijsvanmeurs.nl (openbaar, branch `main`)
-- Live adres: https://www.matthijsvanmeurs.nl
+- Live adres: https://www.matthijsvanmeurs.nl (de onepager)
   - matthijsvanmeurs.nl zonder www stuurt automatisch door naar www
   - Reserveadres: https://mvmnl.github.io/matthijsvanmeurs.nl/
-  - Het bestand CNAME in de hoofdmap bepaalt het domein. Niet verwijderen.
+  - Het bestand `onepager/CNAME` bepaalt het domein. Niet verwijderen.
 
 Wijziging publiceren:
 ```

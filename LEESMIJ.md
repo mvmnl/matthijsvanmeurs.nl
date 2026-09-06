@@ -35,6 +35,25 @@ eerste editie klaarligt.
 - Partnerbalk (BeeSensible) staat als losse sectie op de homepage en kan verwijderd worden.
 
 
+## Online zetten
+De site staat op GitHub en wordt automatisch gepubliceerd via GitHub Pages.
+
+- Repository: https://github.com/mvmnl/matthijsvanmeurs.nl (openbaar, branch `main`)
+- Live adres: https://mvmnl.github.io/matthijsvanmeurs.nl/
+
+Wijziging publiceren:
+```
+git add -A
+git commit -m "Korte omschrijving van de wijziging"
+git push
+```
+Binnen een minuut staat het online. Vergeet niet eerst de bouwscripts te draaien
+als je teksten in `bronbestanden/build/` hebt aangepast.
+
+Eigen domein koppelen: zet een bestand `CNAME` in de hoofdmap met daarin
+`www.matthijsvanmeurs.nl`, en wijs bij je domeinprovider een CNAME-record
+van `www` naar `mvmnl.github.io`.
+
 ## Lokaal bekijken
 ```
 ruby -run -e httpd "/pad/naar/matthijsvanmeurs.nl" -p 8765

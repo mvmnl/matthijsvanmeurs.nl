@@ -1,0 +1,43 @@
+# Publiceert ALLEEN de map onepager/ naar GitHub Pages.
+#
+# Wil je later de volledige site publiceren in plaats van de onepager,
+# verander dan hieronder "path: ./onepager" in "path: ." en push dat.
+# De volledige site staat gewoon in deze repository, hij wordt nu niet gepubliceerd.
+
+name: Publiceer de onepager
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  publiceren:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.publicatie.outputs.page_url }}
+    steps:
+      - name: Repository ophalen
+        uses: actions/checkout@v4
+
+      - name: Pages voorbereiden
+        uses: actions/configure-pages@v5
+
+      - name: Alleen de onepager inpakken
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./onepager
+
+      - name: Online zetten
+        id: publicatie
+        uses: actions/deploy-pages@v4

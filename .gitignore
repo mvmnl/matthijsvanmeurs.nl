@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Editors en lokale werkbestanden
+.vscode/
+.idea/
+*.swp
+*~
+
+# Lokale configuratie van Claude Code (bevat paden van deze computer)
+.claude/
+
+# Losstaande testpagina: wordt gegenereerd uit onepager/ en is 600+ KB
+# aan ingebedde afbeeldingen. Hoort niet in versiebeheer, maak hem opnieuw met:
+#   ruby bronbestanden/build/build_testpagina.rb "$PWD"
+/test.html
+
+# Logbestanden
+*.log

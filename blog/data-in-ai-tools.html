@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wat gebeurt er met je data in ChatGPT, Gemini, Claude en Copilot? | Matthijs van Meurs</title>
+  <meta name="description" content="Wat doen ChatGPT, Gemini, Claude en Microsoft Copilot met je invoer? De verschillen tussen gratis en zakelijke versies, datatraining en opslag, in gewone taal.">
+  <link rel="canonical" href="https://www.matthijsvanmeurs.nl/blog/data-in-ai-tools.html">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="nl_NL">
+  <meta property="og:site_name" content="Matthijs van Meurs">
+  <meta property="og:title" content="Wat gebeurt er met je data in ChatGPT, Gemini, Claude en Copilot? | Matthijs van Meurs">
+  <meta property="og:description" content="Wat doen ChatGPT, Gemini, Claude en Microsoft Copilot met je invoer? De verschillen tussen gratis en zakelijke versies, datatraining en opslag, in gewone taal.">
+  <meta property="og:url" content="https://www.matthijsvanmeurs.nl/blog/data-in-ai-tools.html">
+  <meta property="og:image" content="https://www.matthijsvanmeurs.nl/assets/img/matthijs-van-meurs-portret-laptop.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"Wat gebeurt er met je data in ChatGPT, Gemini, Claude en Copilot?","description":"Wat doen ChatGPT, Gemini, Claude en Microsoft Copilot met je invoer? De verschillen tussen gratis en zakelijke versies, datatraining en opslag, in gewone taal.","datePublished":"2026-08-18","author":{"@type":"Person","name":"Matthijs van Meurs","url":"https://www.matthijsvanmeurs.nl/over-mij.html"},"publisher":{"@type":"Organization","name":"Matthijs van Meurs"},"image":"https://www.matthijsvanmeurs.nl/assets/img/matthijs-van-meurs-portret-laptop.jpg","mainEntityOfPage":"https://www.matthijsvanmeurs.nl/blog/data-in-ai-tools.html"}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a class="logo" href="../index.html" aria-label="Matthijs van Meurs, naar de homepage">Matthijs van Meurs<span class="logo__dot"></span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="hoofdmenu" aria-label="Menu openen of sluiten">
+      <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <nav class="nav" id="hoofdmenu" aria-label="Hoofdmenu">
+      <ul class="nav__list">
+        <li class="has-sub">
+          <a class="nav__link" href="../ai-training.html">Diensten <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
+          <ul class="sub">
+            <li><a href="../ai-training.html">AI-training in-company<small>Je hele team op één niveau</small></a></li>
+            <li><a href="../workshops.html">AI-workshops<small>Eén dagdeel, direct toepasbaar</small></a></li>
+            <li><a href="../keynotes.html">Keynotes en lezingen<small>Voor congressen en teamdagen</small></a></li>
+            <li><a href="../toolimplementatie.html">Toolimplementatie en AI-beleid<small>Van wildgroei naar overzicht</small></a></li>
+          </ul>
+        </li>
+        <li class="has-sub">
+          <a class="nav__link" href="../voor-bedrijven.html">Voor wie <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
+          <ul class="sub">
+            <li><a href="../voor-bedrijven.html">Bedrijven</a></li>
+            <li><a href="../voor-onderwijs.html">Onderwijs</a></li>
+            <li><a href="../voor-overheid.html">Overheid</a></li>
+          </ul>
+        </li>
+        <li><a class="nav__link" href="../over-mij.html">Over mij</a></li>
+        <li><a class="nav__link" href="../blog.html">Blog</a></li>
+        <li><a class="nav__link" href="../contact.html">Contact</a></li>
+      </ul>
+      <a class="btn btn--primary btn--sm nav__cta" href="https://calendly.com/matthijsvm/intro" target="_blank" rel="noopener">Plan een kennismaking</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inhoud">
+<article>
+  <section class="post-hero">
+    <div class="container container--narrow">
+      <span class="eyebrow">Tools</span>
+      <h1>Wat gebeurt er met je data in ChatGPT, Gemini, Claude en Copilot?</h1>
+      <div class="post-meta">
+        <span>Door Matthijs van Meurs</span>
+        <span><time datetime="2026-08-18">18 augustus 2026</time></span>
+        <span>Leestijd 8 min</span>
+      </div>
+    </div>
+  </section>
+  <section class="post-body">
+    <div class="container container--narrow">
+      <img src="../assets/img/matthijs-van-meurs-portret-laptop.jpg" width="856" height="1280" alt="Matthijs van Meurs achter een laptop aan een houten tafel" style="aspect-ratio:16/9;object-fit:cover;margin-top:0" fetchpriority="high">
+      <p class="lead">De vraag die ik in elke training krijg: "Wat gebeurt er eigenlijk met wat ik intyp?" Het eerlijke antwoord is: dat hangt af van welke tool, welke versie en welke instellingen. Hieronder de hoofdlijnen, in gewone taal.</p>
+
+<p><small>Voorwaarden veranderen regelmatig. Dit artikel beschrijft de situatie op het moment van schrijven. Controleer altijd de actuele voorwaarden van je leverancier.</small></p>
+
+<h2>Het grote onderscheid: gratis versus zakelijk</h2>
+<p>Bij vrijwel alle aanbieders geldt hetzelfde patroon. Bij gratis en consumentenversies mag je invoer standaard worden gebruikt om het model te verbeteren, tenzij je dat zelf uitzet. Bij zakelijke versies (Team, Business, Enterprise) is dat standaard uitgesloten, staat het contractueel vast en krijg je een verwerkersovereenkomst.</p>
+<p>Dat verschil is de kern. Een medewerker met een gratis account werkt onder consumentenvoorwaarden. Een organisatie met een zakelijke licentie werkt onder zakelijke voorwaarden. Voor persoonsgegevens en vertrouwelijke informatie is alleen het tweede acceptabel.</p>
+
+<h2>ChatGPT (OpenAI)</h2>
+<ul>
+  <li><strong>Gratis en Plus:</strong> invoer kan worden gebruikt voor training, tenzij je dat uitzet in de instellingen. Gesprekken worden bewaard.</li>
+  <li><strong>Team, Enterprise en API:</strong> geen training op je data, verwerkersovereenkomst beschikbaar, beheer over bewaartermijnen.</li>
+  <li><strong>Locatie:</strong> hoofdzakelijk Verenigde Staten. Voor zakelijke klanten zijn er opties voor dataopslag in Europa.</li>
+</ul>
+
+<h2>Gemini (Google)</h2>
+<ul>
+  <li><strong>Consumentenversie:</strong> gesprekken kunnen door mensen worden beoordeeld en gebruikt voor verbetering, afhankelijk van je activiteitsinstellingen.</li>
+  <li><strong>Gemini in Google Workspace:</strong> valt onder de zakelijke Workspace-voorwaarden. Geen training op je data, en je gegevens blijven binnen je eigen omgeving.</li>
+  <li><strong>Let op:</strong> het verschil tussen de gratis Gemini-app en Gemini binnen een betaald Workspace-abonnement is groot. Zorg dat je mensen de goede gebruiken.</li>
+</ul>
+
+<h2>Claude (Anthropic)</h2>
+<ul>
+  <li><strong>Consumentenversie:</strong> sinds 2025 wordt bij consumentenaccounts gevraagd of je data gebruikt mag worden voor training. Je kunt dat weigeren.</li>
+  <li><strong>Team, Enterprise en API:</strong> geen training op je data, verwerkersovereenkomst beschikbaar.</li>
+  <li><strong>Sterk in:</strong> lange documenten en zorgvuldige tekst. Voor organisaties die veel met beleidsstukken werken een serieuze optie.</li>
+</ul>
+
+<h2>Microsoft Copilot</h2>
+<ul>
+  <li><strong>Copilot (gratis, in Windows en Edge):</strong> consumentenvoorwaarden. Niet geschikt voor zakelijke gegevens.</li>
+  <li><strong>Microsoft 365 Copilot:</strong> werkt binnen je eigen tenant, onder de bestaande Microsoft 365-voorwaarden. Geen training op je data. Copilot ziet wél alles waar de gebruiker toegang toe heeft. Slecht ingerichte rechten worden dus ineens zichtbaar.</li>
+  <li><strong>Locatie:</strong> dataopslag volgt je tenant-instellingen, dus voor Nederlandse organisaties doorgaans binnen de EU.</li>
+</ul>
+
+<blockquote><p>De tool is zelden het probleem. De versie en de instellingen wel.</p></blockquote>
+
+<h2>Waar staat de data?</h2>
+<p>Alle vier de aanbieders zijn Amerikaans. Ook als data in Europa wordt opgeslagen, valt het bedrijf onder Amerikaans recht. Voor de meeste organisaties is dat een geaccepteerd risico, mits de contractuele afspraken kloppen. Voor organisaties met een hoog risicoprofiel, zoals delen van de overheid en de zorg, is het een reden om ook naar Europese alternatieven te kijken. Daarover meer in <a href="europese-ai-alternatieven.html">dit artikel</a>.</p>
+
+<h2>Vijf vuistregels voor elke tool</h2>
+<ol>
+  <li>Gebruik nooit een gratis account voor werk met persoonsgegevens of vertrouwelijke informatie.</li>
+  <li>Zet bij consumentenaccounts altijd de optie "gebruik mijn data voor training" uit.</li>
+  <li>Anonimiseer voordat je deelt. Namen, adressen en nummers hebben geen functie in een prompt.</li>
+  <li>Lees de voorwaarden van de versie die jij gebruikt, niet die van de marketingpagina.</li>
+  <li>Maak als organisatie een keuze en communiceer die. Zonder keuze kiest iedereen zelf.</li>
+</ol>
+<p>Wil je dat je team dit niet alleen weet, maar ook toepast? Kijk bij <a href="../workshops.html">de workshop privacy en datahygiëne</a>.</p>
+
+      <div class="author-box">
+        <img src="../assets/img/matthijs-van-meurs-portret-laptop.jpg" width="84" height="84" alt="Matthijs van Meurs" loading="lazy">
+        <p><strong>Matthijs van Meurs</strong>AI-trainer en spreker. Helpt bedrijven, onderwijs en overheid om AI verantwoord en productief in te zetten. <a href="../over-mij.html">Meer over Matthijs</a> of <a href="https://calendly.com/matthijsvm/intro" target="_blank" rel="noopener">plan een kennismaking</a>.</p>
+      </div>
+    </div>
+  </section>
+</article>
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Verder lezen</span>
+      <h2>Meer artikelen</h2>
+    </div>
+    <div class="cards cards--2">
+      <article class="card-img">
+  <img src="../assets/img/matthijs-van-meurs-kantoor.jpg" width="1280" height="706" alt="Open kantoorruimte met bureaus en oranje wandpanelen" loading="lazy">
+  <div class="card-img__body">
+    <span class="card-img__meta">Privacy · 6 min</span>
+    <h3>Schaduw-AI: wat je medewerkers al doen zonder dat je het weet</h3>
+    <p>Bijna zes op de tien werkenden gebruiken AI voor hun werk. Meer dan de helft verzwijgt dat voor de werkgever. Wat betekent dat voor jouw organisatie?</p>
+    <a class="link-arrow" href="../blog/schaduw-ai.html">Lees het artikel</a>
+  </div>
+</article>
+<article class="card-img">
+  <img src="../assets/img/matthijs-van-meurs-keynote.jpg" width="1280" height="720" alt="Matthijs van Meurs presenteert voor een scherm" loading="lazy">
+  <div class="card-img__body">
+    <span class="card-img__meta">Europa · 7 min</span>
+    <h3>Europese AI-alternatieven: wat kun je vandaag al gebruiken?</h3>
+    <p>Minder afhankelijk van Amerikaanse en Chinese modellen. Welke Europese opties zijn er nu al volwassen genoeg voor dagelijks gebruik?</p>
+    <a class="link-arrow" href="../blog/europese-ai-alternatieven.html">Lees het artikel</a>
+  </div>
+</article>
+
+    </div>
+  </div>
+</section>
+<section class="cta">
+  <div class="container">
+    <div class="cta__text">
+      <span class="eyebrow">Kennismaken</span>
+      <h2>Benieuwd waar jouw organisatie staat?</h2>
+      <p>In een gesprek van dertig minuten kijken we wat er al gebeurt met AI in je organisatie, waar de risico's zitten en welke stap logisch is. Vrijblijvend en zonder verkooppraatje.</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="https://calendly.com/matthijsvm/intro" target="_blank" rel="noopener">Plan een kennismaking</a>
+        <a class="btn btn--ghost-light" href="../contact.html">Stuur een bericht</a>
+      </div>
+    </div>
+    <div class="cta__side cta__side--contact">
+      <h3>Liever direct contact?</h3>
+      <p>Bellen of mailen mag altijd. Ik reageer binnen één werkdag.</p>
+      <ul class="contact-list">
+  <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg><div><strong>E-mail</strong><a href="mailto:info@matthijsvanmeurs.nl">info@matthijsvanmeurs.nl</a></div></li>
+  <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><div><strong>Telefoon</strong><a href="tel:+31641011064">+31 6 41 01 10 64</a></div></li>
+  <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg><div><strong>LinkedIn</strong><a href="https://www.linkedin.com/in/matthijsvanmeurs/" target="_blank" rel="noopener">Volg of stuur een bericht</a></div></li>
+</ul>
+
+    </div>
+  </div>
+</section>
+
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div class="footer-col footer-col--brand">
+        <a class="logo logo--light" href="../index.html">Matthijs van Meurs<span class="logo__dot"></span></a>
+        <p>AI-training, workshops, keynotes en toolimplementatie voor organisaties die AI verantwoord willen inzetten. Met oog voor privacy en security.</p>
+        <a class="btn btn--primary btn--sm" href="https://calendly.com/matthijsvm/intro" target="_blank" rel="noopener" style="align-self:flex-start">Plan een kennismaking</a>
+      </div>
+      <div class="footer-col">
+        <h4>Diensten</h4>
+        <a href="../ai-training.html">AI-training in-company</a>
+        <a href="../workshops.html">AI-workshops</a>
+        <a href="../keynotes.html">Keynotes en lezingen</a>
+        <a href="../toolimplementatie.html">Toolimplementatie en AI-beleid</a>
+        <a href="../ai-training-randstad.html">AI-training in de Randstad</a>
+      </div>
+      <div class="footer-col">
+        <h4>Voor wie</h4>
+        <a href="../voor-bedrijven.html">Bedrijven</a>
+        <a href="../voor-onderwijs.html">Onderwijs</a>
+        <a href="../voor-overheid.html">Overheid</a>
+        <h4 style="margin-top:14px">Meer</h4>
+        <a href="../over-mij.html">Over mij</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <address>Matthijs van Meurs<br>Keurenplein 41 - UNIT A3170<br>1069 CD Amsterdam<br>Nederland</address>
+        <a href="mailto:info@matthijsvanmeurs.nl">info@matthijsvanmeurs.nl</a>
+        <a href="tel:+31641011064">+31 6 41 01 10 64</a>
+        <a href="https://www.linkedin.com/in/matthijsvanmeurs/" target="_blank" rel="noopener">LinkedIn</a>
+        <p>KvK 65877675</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Matthijs van Meurs. Alle rechten voorbehouden.</span>
+      <span><a href="../privacy.html">Privacyverklaring</a> · <a href="../contact.html">Contact</a></span>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/main.js"></script>
+
+</body>
+</html>

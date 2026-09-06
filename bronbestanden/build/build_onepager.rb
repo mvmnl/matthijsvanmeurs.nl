@@ -33,11 +33,7 @@ def op_footer
         <div class="footer-cols">
           <div class="footer-col footer-col--brand">
             <a class="logo logo--light" href="#top">Matthijs van Meurs<span class="logo__dot"></span></a>
-            <p>AI-training, workshops, keynotes en toolimplementatie voor organisaties die AI verantwoord willen inzetten. Met oog voor privacy en security.</p>
-          </div>
-          <div class="footer-col">
-            <h4>Menu</h4>
-            #{NAV.map { |h, l| "<a href=\"#{h}\">#{l}</a>" }.join("\n            ")}
+            <p>In-company training, workshops en keynotes voor organisaties die AI productief en verantwoord willen inzetten.</p>
           </div>
           <div class="footer-col">
             <h4>Contact</h4>
@@ -50,7 +46,6 @@ def op_footer
         </div>
         <div class="footer-bottom">
           <span>© 2026 Matthijs van Meurs. Alle rechten voorbehouden.</span>
-          <span><a href="privacy.html">Privacyverklaring</a></span>
         </div>
       </div>
     </footer>
@@ -123,15 +118,13 @@ body = <<~HTML
       <div class="hero__text">
         <span class="eyebrow">AI-training voor organisaties</span>
         <h1>Je team gebruikt al AI. <em>Alleen weet niemand hoe.</em></h1>
-        <p class="lead">Onofficiële accounts, klantdata in gratis tools, geen beleid en geen meetbaar resultaat. Ik help bedrijven, onderwijs en overheid om AI verantwoord én productief in te zetten. Met privacy als uitgangspunt, niet als voetnoot.</p>
+        <p class="lead">Ik help bedrijven, onderwijsinstellingen en overheidsinstellingen om AI productief en verantwoord in te zetten.</p>
         <div class="btn-row">
           <a class="btn btn--primary" href="#{CALENDLY}" target="_blank" rel="noopener">Plan een kennismaking</a>
-          <a class="btn btn--outline" href="#diensten">Bekijk wat ik doe</a>
         </div>
         <div class="hero__meta">
           <span>#{icon(:shield)} Privacy en security ingebouwd</span>
           <span>#{icon(:users)} Training, workshops en keynotes</span>
-          <span>#{icon(:pin)} Amsterdam, Randstad en heel Nederland</span>
         </div>
       </div>
       <div class="hero__media">
@@ -160,10 +153,10 @@ body = <<~HTML
         <p>Niet omdat de tools tekortschieten, maar omdat niemand het gesprek heeft gevoerd over hoe, waarmee en met welke data.</p>
       </div>
       <div class="cards">
-        #{icon_box(:eye_off, "Schaduw-AI", "Medewerkers hebben zelf een gratis account aangemaakt. Wat daarin verdwijnt aan klantgegevens, contracten en interne stukken, weet niemand.")}
-        #{icon_box(:file_x, "Geen beleid", "Er zijn geen afspraken over welke tools mogen, waarvoor, en wat er nooit in mag. Iedereen bepaalt het zelf, meestal uit onwetendheid.")}
         #{icon_box(:bars, "Wisselend niveau", "De één automatiseert halve werkdagen, de ander typt nog vragen van drie woorden. Kennis blijft hangen bij een paar enthousiastelingen.")}
         #{icon_box(:target, "Niet meetbaar", "Er wordt veel geëxperimenteerd, maar niemand kan zeggen wat het oplevert. Zonder doel geen resultaat, zonder resultaat geen draagvlak.")}
+        #{icon_box(:file_x, "Geen beleid", "Er zijn geen afspraken over welke tools mogen, waarvoor, en wat er nooit in mag. Iedereen bepaalt het zelf, meestal uit onwetendheid.")}
+        #{icon_box(:eye_off, "AI buiten beeld", "Medewerkers hebben zelf een gratis account aangemaakt. Wat daarin verdwijnt aan klantgegevens, contracten en interne stukken, weet niemand.")}
       </div>
     </div>
   </section>
@@ -179,27 +172,23 @@ body = <<~HTML
       <div class="cards">
         <div class="card">
           <span class="card__num">01</span>
-          <h3>AI-training in-company</h3>
+          <h3>In-company training</h3>
           <p>Een dag of traject voor je hele team, met jullie eigen werk als oefenmateriaal. Prompten, verifiëren, datahygiëne en werkafspraken. Ideaal 8 tot 15 deelnemers, op locatie in heel Nederland.</p>
-          <a class="link-arrow" href="#contact">Vraag een voorstel aan</a>
         </div>
         <div class="card">
           <span class="card__num">02</span>
-          <h3>AI-workshops</h3>
+          <h3>Workshops</h3>
           <p>Eén dagdeel, één thema, direct toepasbaar. Beter prompten, privacy en datahygiëne, use-cases vinden, werkafspraken maken of AI voor management. 6 tot 20 deelnemers.</p>
-          <a class="link-arrow" href="#contact">Vraag een voorstel aan</a>
         </div>
         <div class="card">
           <span class="card__num">03</span>
           <h3>Keynotes en lezingen</h3>
-          <p>Een nuchter verhaal over kansen én schaduwkanten van AI. Voor congressen, teamdagen en managementbijeenkomsten. 30 tot 60 minuten, desgewenst met interactief deel.</p>
-          <a class="link-arrow" href="#contact">Vraag beschikbaarheid aan</a>
+          <p>Een nuchter verhaal over kansen en schaduwkanten van AI. Voor congressen, teamdagen en managementbijeenkomsten. 30 tot 60 minuten, desgewenst met interactief deel.</p>
         </div>
         <div class="card card--ink">
           <span class="card__num">04</span>
-          <h3>Toolimplementatie en AI-beleid</h3>
-          <p>Inzicht in welke AI-tools je organisatie echt gebruikt, een onderbouwde keuze en werkafspraken die in de praktijk werken. In samenwerking met partner BeeSensible.</p>
-          <a class="link-arrow" href="#contact">Bespreek de mogelijkheden</a>
+          <h3>Tools</h3>
+          <p>Inzicht in welke AI-tools je organisatie echt gebruikt, een onderbouwde keuze en werkafspraken die in de praktijk werken. Samen met mijn partners.</p>
         </div>
       </div>
     </div>
@@ -210,7 +199,7 @@ body = <<~HTML
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Voor wie</span>
-        <h2>Organisaties waar zorgvuldigheid geen optie is, maar een plicht</h2>
+        <h2>Voor organisaties waar zowel productiviteit als veiligheid telt</h2>
       </div>
       <div class="cards cards--3">
         <div class="card">
@@ -237,7 +226,7 @@ body = <<~HTML
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Mijn aanpak</span>
-        <h2>Geen hype, geen doemscenario. Gewoon leren wat werkt.</h2>
+        <h2>Geen hype, geen doemscenario's. Gewoon leren wat werkt.</h2>
         <p>Elke training begint bij jullie praktijk en eindigt met iets wat morgen gebruikt wordt. Drie stappen, in elk traject.</p>
       </div>
       <div class="steps">
@@ -269,10 +258,9 @@ body = <<~HTML
         </div>
         <div class="split__text">
           <span class="eyebrow">Over Matthijs</span>
-          <h2>Rasoptimist over AI. Met open ogen voor de schaduwkant.</h2>
-          <p>Ik geloof dat AI werk leuker, sneller en beter kan maken. Maar ik zie ook dat mensen uit onwetendheid alles in een chatbot stoppen, zonder idee wat er met hun data gebeurt. En dat we als Europa opvallend afhankelijk zijn geworden van Amerikaanse en Chinese modellen.</p>
+          <h2>Optimistisch over AI. En bewust van de risico's.</h2>
+          <p>Ik geloof dat AI werk leuker, sneller en beter kan maken. Maar ik zie ook dat mensen uit onwetendheid alles in een chatbot stoppen, zonder idee wat er met hun data gebeurt. En dat we als Europa opvallend afhankelijk zijn van Amerika en China. Dat is niet per definitie positief.</p>
           <p>Daarom train ik niet alleen op vaardigheden, maar ook op bewustzijn. Zodat je team AI gebruikt met verstand en met grip op de eigen data. Nuchter, praktisch en zonder jargon.</p>
-          <a class="link-arrow" href="#{LINKEDIN}" target="_blank" rel="noopener">Volg me op LinkedIn</a>
         </div>
       </div>
     </div>
@@ -281,9 +269,12 @@ body = <<~HTML
   <!-- PARTNERS: losse balk, eenvoudig te verwijderen -->
   <section class="partners" aria-label="Partners">
     <div class="container">
-      <span class="partners__label">Partner</span>
+      <span class="partners__label">Partners</span>
       <a href="https://beesensible.eu" target="_blank" rel="noopener" title="BeeSensible: grip op AI-gebruik in je organisatie">
         <img src="assets/img/beesensible-logo.svg" width="246" height="32" alt="BeeSensible logo" loading="lazy">
+      </a>
+      <a href="https://www.leexi.ai" target="_blank" rel="noopener" title="Leexi: AI-notulist voor gesprekken en vergaderingen">
+        <img src="assets/img/leexi-logo.svg" width="138" height="30" alt="Leexi logo" loading="lazy">
       </a>
     </div>
   </section>
@@ -295,7 +286,7 @@ body = <<~HTML
         <div class="col" style="flex:1 1 380px">
           <span class="eyebrow">Contact</span>
           <h2>Benieuwd waar jouw organisatie staat?</h2>
-          <p class="lead">In een gesprek van dertig minuten kijken we wat er al gebeurt met AI in je organisatie, waar de risico's zitten en welke stap logisch is. Vrijblijvend en zonder verkooppraatje.</p>
+          <p class="lead">In een gesprek van dertig minuten kijken we wat er al gebeurt met AI in je organisatie, waar de behoefte is, waar de risico's zitten en welke vervolgstap logisch is.</p>
           <div class="btn-row" style="margin-bottom:36px">
             <a class="btn btn--primary" href="#{CALENDLY}" target="_blank" rel="noopener">#{icon(:calendar)} Plan een kennismaking</a>
             <a class="btn btn--outline" href="mailto:#{EMAIL}?subject=Kennismaking%20AI-training">#{icon(:mail)} Stuur een e-mail</a>
@@ -311,7 +302,7 @@ body = <<~HTML
   <div class="icon-box" style="gap:18px">
     <div class="icon-box__icon">#{icon(:calendar)}</div>
     <h3>Plan meteen een kennismaking</h3>
-    <p>Dertig minuten, online of bij jullie op locatie. We bespreken waar je organisatie staat met AI, waar de risico’s zitten en welke stap logisch is. Vrijblijvend en zonder verkooppraatje.</p>
+    <p>Dertig minuten, online of bij jullie op locatie. We bespreken waar je organisatie staat met AI, waar de behoefte is en welke vervolgstap logisch is.</p>
     <ul class="checklist">
       <li>Geen voorbereiding nodig.</li>
       <li>Je krijgt daarna een voorstel op maat.</li>

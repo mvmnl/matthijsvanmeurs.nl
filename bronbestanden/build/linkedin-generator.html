@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>LinkedIn-beelden genereren</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  body { font-family: Inter, sans-serif; background:#20242c; color:#eee; margin:0; padding:24px; }
+  h1 { font-size:16px; font-weight:600; }
+  .preview { display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start; }
+  .preview figure { margin:0; }
+  .preview canvas { max-width:520px; height:auto; display:block; background:#111; border:1px solid #444; }
+  figcaption { font-size:11px; color:#aaa; padding-top:4px; }
+</style>
+</head>
+<body>
+<h1>LinkedIn-beelden</h1>
+<div class="preview" id="preview"></div>
+
+<script>
+const INK    = '#121826';
+const PAPER  = '#F6F4EF';
+const ORANGE = '#FF5A1F';
+const NAVY   = '#1E2A44';
+const MUTED  = '#AEB6C8';
+
+const SORA  = w => `${w} %SIZE%px Sora, Inter, Helvetica, Arial, sans-serif`;
+const INTER = w => `${w} %SIZE%px Inter, Helvetica, Arial, sans-serif`;
+
+function font(spec, size) { return spec.replace('%SIZE%', size); }
+
+// Grootste lettergrootte waarbij de tekst binnen maxW past
+function fitSize(ctx, text, spec, maxW, hi, lo) {
+  lo = lo || 8; hi = hi || 400;
+  while (hi - lo > 0.5) {
+    const mid = (hi + lo) / 2;
+    ctx.font = font(spec, mid);
+    if (ctx.measureText(text).width <= maxW) lo = mid; else hi = mid;
+  }
+  return Math.floor(lo);
+}
+
+function newCanvas(w, h) {
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  return c;
+}
+
+function show(canvas, label) {
+  const fig = document.createElement('figure');
+  fig.appendChild(canvas);
+  const cap = document.createElement('figcaption');
+  cap.textContent = label;
+  fig.appendChild(cap);
+  document.getElementById('preview').appendChild(fig);
+}
+
+function loadImage(src) {
+  return new Promise((res, rej) => {
+    const i = new Image();
+    i.onload = () => res(i);
+    i.onerror = () => rej(new Error('kan niet laden: ' + src));
+    i.src = src;
+  });
+}
+
+// Tekent een afbeelding zodat hij het vlak vult, gecentreerd, met optionele verticale focus (0=boven,1=onder)
+function drawCover(ctx, img, x, y, w, h, focusY) {
+  focusY = focusY === undefined ? 0.5 : focusY;
+  const s = Math.max(w / img.width, h / img.height);
+  const dw = img.width * s, dh = img.height * s;
+  const dx = x + (w - dw) / 2;
+  const dy = y + (h - dh) * focusY;
+  ctx.drawImage(img, dx, dy, dw, dh);
+}
+
+/* ---------------- LOGO 400x400, naam onder elkaar ---------------- */
+function logoNaam() {
+  const S = 400, c = newCanvas(S, S), ctx = c.getContext('2d');
+  ctx.fillStyle = INK; ctx.fillRect(0, 0, S, S);
+
+  const pad = 34;
+  const sq = 30, gap = 14;            // oranje blokje achter de tweede regel
+  const lines = ['Matthijs', 'van Meurs'];
+  const availTop = S - pad * 2;
+  const availBot = S - pad * 2 - sq - gap;
+
+  const spec = SORA(700);
+  const size = Math.min(
+    fitSize(ctx, lines[0], spec, availTop),
+    fitSize(ctx, lines[1], spec, availBot)
+  );
+
+  ctx.font = font(spec, size);
+  ctx.textBaseline = 'alphabetic';
+  const lh = size * 1.02;
+  const m1 = ctx.measureText(lines[0]);
+  const m2 = ctx.measureText(lines[1]);
+  const asc = m1.actualBoundingBoxAscent;
+  const desc = Math.max(m2.actualBoundingBoxDescent, 0);
+  const blockH = lh + asc + desc;
+  const top = (S - blockH) / 2 + asc;
+
+  ctx.fillStyle = PAPER;
+  ctx.fillText(lines[0], pad, top);
+  ctx.fillText(lines[1], pad, top + lh);
+
+  const wLast = ctx.measureText(lines[1]).width;
+  ctx.fillStyle = ORANGE;
+  ctx.fillRect(pad + wLast + gap, top + lh - sq, sq, sq);
+
+  return c;
+}
+
+/* ---------------- LOGO 400x400, monogram ---------------- */
+function logoMonogram() {
+  const S = 400, c = newCanvas(S, S), ctx = c.getContext('2d');
+  ctx.fillStyle = ORANGE; ctx.fillRect(0, 0, S, S);
+
+  const pad = 42;
+  const spec = SORA(700);
+  const size = fitSize(ctx, 'MvM', spec, S - pad * 2);
+  ctx.font = font(spec, size);
+  ctx.fillStyle = INK;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('MvM', S / 2, S / 2 - size * 0.04);
+
+    return c;
+}
+
+/* ---------------- BANNER ---------------- */
+// stijl: 'huisstijl' of 'foto'
+async function banner(W, H, stijl) {
+  const c = newCanvas(W, H), ctx = c.getContext('2d');
+  const smal = H < 260;                       // 1128x191 is smal
+  const textX = smal ? 210 : 300;             // ruimte vrijhouden voor het profielrondje
+  const rechts = W - (smal ? 48 : 72);
+  const availW = rechts - textX;
+
+  if (stijl === 'foto') {
+    const img = await loadImage('/assets/img/matthijs-van-meurs-kantoor.jpg');
+    drawCover(ctx, img, 0, 0, W, H, 0.10);
+    // donkere sluier zodat de tekst leesbaar blijft
+    const g = ctx.createLinearGradient(0, 0, W, 0);
+    g.addColorStop(0.00, 'rgba(18,24,38,0.96)');
+    g.addColorStop(0.45, 'rgba(18,24,38,0.86)');
+    g.addColorStop(1.00, 'rgba(18,24,38,0.35)');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  } else {
+    ctx.fillStyle = INK; ctx.fillRect(0, 0, W, H);
+    // subtiel donkerblauw vlak rechts voor diepte
+    const g = ctx.createLinearGradient(W * 0.45, 0, W, H);
+    g.addColorStop(0, 'rgba(30,42,68,0)');
+    g.addColorStop(1, 'rgba(30,42,68,1)');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  }
+
+  // oranje accentbalk links van de tekst
+  const barW = smal ? 8 : 10;
+  const barH = smal ? H * 0.52 : H * 0.46;
+  ctx.fillStyle = ORANGE;
+  ctx.fillRect(textX - (smal ? 30 : 44), (H - barH) / 2, barW, barH);
+
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+
+  if (smal) {
+    // één grote regel plus een subregel
+    const kop = 'Je team gebruikt al AI. Alleen weet niemand hoe.';
+    const kopSize = Math.min(fitSize(ctx, kop, SORA(700), availW), 34);
+    const subSize = Math.max(13, Math.round(kopSize * 0.46));
+    const totaal = kopSize + 12 + subSize;
+    let y = (H - totaal) / 2 + kopSize * 0.86;
+
+    ctx.font = font(SORA(700), kopSize);
+    ctx.fillStyle = PAPER;
+    ctx.fillText(kop, textX, y);
+
+    y += 12 + subSize;
+    ctx.font = font(INTER(500), subSize);
+    ctx.fillStyle = MUTED;
+    ctx.fillText('AI-training, workshops en keynotes', textX, y);
+
+    ctx.fillStyle = ORANGE;
+    const wsub = ctx.measureText('AI-training, workshops en keynotes').width;
+    ctx.font = font(INTER(600), subSize);
+    ctx.fillText('www.matthijsvanmeurs.nl', textX + wsub + 22, y);
+  } else {
+    // twee grote regels plus een subregel
+    const r1 = 'Je team gebruikt al AI.';
+    const r2 = 'Alleen weet niemand hoe.';
+    const kopSize = Math.min(
+      fitSize(ctx, r1, SORA(700), availW),
+      fitSize(ctx, r2, SORA(700), availW),
+      62
+    );
+    const lh = kopSize * 1.14;
+    const subSize = Math.round(kopSize * 0.34);
+    const totaal = lh * 2 + 26 + subSize;
+    let y = (H - totaal) / 2 + kopSize * 0.84;
+
+    ctx.font = font(SORA(700), kopSize);
+    ctx.fillStyle = PAPER;
+    ctx.fillText(r1, textX, y);
+    ctx.fillStyle = ORANGE;
+    ctx.fillText(r2, textX, y + lh);
+
+    y = y + lh + 26 + subSize;
+    ctx.font = font(INTER(500), subSize);
+    ctx.fillStyle = MUTED;
+    const sub = 'AI-training, workshops en keynotes';
+    ctx.fillText(sub, textX, y);
+    const wsub = ctx.measureText(sub).width;
+    ctx.font = font(INTER(600), subSize);
+    ctx.fillStyle = PAPER;
+    ctx.fillText('www.matthijsvanmeurs.nl', textX + wsub + 26, y);
+  }
+  return c;
+}
+
+async function opslaan(canvas, naam, type, kwaliteit) {
+  const data = canvas.toDataURL(type || 'image/png', kwaliteit);
+  const r = await fetch('/save?name=' + encodeURIComponent(naam), { method: 'POST', body: data });
+  return naam + ' -> ' + (await r.text());
+}
+
+window.maakAlles = async function () {
+  await document.fonts.load('700 100px Sora');
+  await document.fonts.load('600 40px Inter');
+  await document.fonts.load('500 40px Inter');
+  await document.fonts.ready;
+
+  const log = [];
+  const a = logoNaam();      show(a, 'logo 400 naam');      log.push(await opslaan(a, 'logo-400-naam.png'));
+  const b = logoMonogram();  show(b, 'logo 400 monogram');  log.push(await opslaan(b, 'logo-400-monogram.png'));
+
+  const c1 = await banner(1128, 191, 'huisstijl'); show(c1, 'bedrijfspagina huisstijl');
+  log.push(await opslaan(c1, 'banner-bedrijfspagina-1128x191-huisstijl.png'));
+
+  const c2 = await banner(1128, 191, 'foto');      show(c2, 'bedrijfspagina foto');
+  log.push(await opslaan(c2, 'banner-bedrijfspagina-1128x191-foto.jpg', 'image/jpeg', 0.92));
+
+  const c3 = await banner(1584, 396, 'huisstijl'); show(c3, 'profiel huisstijl');
+  log.push(await opslaan(c3, 'banner-profiel-1584x396-huisstijl.png'));
+
+  const c4 = await banner(1584, 396, 'foto');      show(c4, 'profiel foto');
+  log.push(await opslaan(c4, 'banner-profiel-1584x396-foto.jpg', 'image/jpeg', 0.92));
+
+  return log;
+};
+</script>
+</body>
+</html>

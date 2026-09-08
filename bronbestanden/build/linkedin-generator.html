@@ -132,92 +132,125 @@ function logoMonogram() {
 }
 
 /* ---------------- BANNER ---------------- */
-// stijl: 'huisstijl' of 'foto'
+// LinkedIn legt de profielfoto (persoonlijk) of het logo (bedrijfspagina) over de
+// linkeronderhoek van de omslag. De linker 27% blijft daarom volledig vrij van tekst.
+const VEILIG = 0.27;
+
 async function banner(W, H, stijl) {
   const c = newCanvas(W, H), ctx = c.getContext('2d');
-  const smal = H < 260;                       // 1128x191 is smal
-  const textX = smal ? 210 : 300;             // ruimte vrijhouden voor het profielrondje
-  const rechts = W - (smal ? 48 : 72);
+  const smal   = H < 260;
+  const veilig = Math.round(W * VEILIG);
+  const barW   = Math.max(7, Math.round(W / 150));
+  const gap    = Math.round(W * 0.024);
+  const textX  = veilig + barW + gap;
+  const rechts = W - Math.round(W * 0.045);
   const availW = rechts - textX;
+  const availH = H - Math.round(H * 0.14) * 2;
 
+  // ---- achtergrond ----
   if (stijl === 'foto') {
     const img = await loadImage('/assets/img/matthijs-van-meurs-kantoor.jpg');
     drawCover(ctx, img, 0, 0, W, H, 0.10);
-    // donkere sluier zodat de tekst leesbaar blijft
     const g = ctx.createLinearGradient(0, 0, W, 0);
-    g.addColorStop(0.00, 'rgba(18,24,38,0.96)');
-    g.addColorStop(0.45, 'rgba(18,24,38,0.86)');
-    g.addColorStop(1.00, 'rgba(18,24,38,0.35)');
+    g.addColorStop(0.00, 'rgba(18,24,38,0.97)');
+    g.addColorStop(0.55, 'rgba(18,24,38,0.90)');
+    g.addColorStop(0.82, 'rgba(18,24,38,0.74)');
+    g.addColorStop(1.00, 'rgba(18,24,38,0.46)');
     ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
   } else {
     ctx.fillStyle = INK; ctx.fillRect(0, 0, W, H);
-    // subtiel donkerblauw vlak rechts voor diepte
-    const g = ctx.createLinearGradient(W * 0.45, 0, W, H);
+    const g = ctx.createLinearGradient(W * 0.40, 0, W, H);
     g.addColorStop(0, 'rgba(30,42,68,0)');
     g.addColorStop(1, 'rgba(30,42,68,1)');
     ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
   }
 
-  // oranje accentbalk links van de tekst
-  const barW = smal ? 8 : 10;
-  const barH = smal ? H * 0.52 : H * 0.46;
-  ctx.fillStyle = ORANGE;
-  ctx.fillRect(textX - (smal ? 30 : 44), (H - barH) / 2, barW, barH);
+  // ---- lettergrootte bepalen op breedte en hoogte ----
+  const r1 = 'Je team gebruikt al AI.';
+  const r2 = 'Alleen weet niemand hoe.';
+  const sub = 'AI-training, workshops en keynotes';
+  const url = 'www.matthijsvanmeurs.nl';
+
+  let size = Math.min(
+    fitSize(ctx, r1, SORA(700), availW),
+    fitSize(ctx, r2, SORA(700), availW)
+  );
+  const lhF = 1.12, subF = 0.40;
+  const hoogteBij = x => lhF * x + x + Math.max(10, x * 0.30) + subF * x;
+  while (size > 10 && hoogteBij(size) > availH) size -= 1;
+  size = Math.min(size, smal ? 46 : 64);
+
+  const lh      = size * lhF;
+  const subSize = Math.max(12, Math.round(size * subF));
+  const tussen  = Math.max(10, Math.round(size * 0.30));
 
   ctx.textAlign = 'left';
   ctx.textBaseline = 'alphabetic';
+  ctx.font = font(SORA(700), size);
+  const asc = ctx.measureText(r1).actualBoundingBoxAscent;
 
-  if (smal) {
-    // één grote regel plus een subregel
-    const kop = 'Je team gebruikt al AI. Alleen weet niemand hoe.';
-    const kopSize = Math.min(fitSize(ctx, kop, SORA(700), availW), 34);
-    const subSize = Math.max(13, Math.round(kopSize * 0.46));
-    const totaal = kopSize + 12 + subSize;
-    let y = (H - totaal) / 2 + kopSize * 0.86;
+  const blokH = asc + lh + tussen + subSize;
+  let y = (H - blokH) / 2 + asc;
 
-    ctx.font = font(SORA(700), kopSize);
-    ctx.fillStyle = PAPER;
-    ctx.fillText(kop, textX, y);
+  // ---- oranje accentbalk, precies op de grens van de vrije zone ----
+  ctx.fillStyle = ORANGE;
+  ctx.fillRect(veilig, (H - blokH) / 2 - size * 0.10, barW, blokH + size * 0.22);
 
-    y += 12 + subSize;
-    ctx.font = font(INTER(500), subSize);
-    ctx.fillStyle = MUTED;
-    ctx.fillText('AI-training, workshops en keynotes', textX, y);
+  // ---- tekst ----
+  ctx.fillStyle = PAPER;
+  ctx.fillText(r1, textX, y);
+  ctx.fillStyle = ORANGE;
+  ctx.fillText(r2, textX, y + lh);
 
-    ctx.fillStyle = ORANGE;
-    const wsub = ctx.measureText('AI-training, workshops en keynotes').width;
-    ctx.font = font(INTER(600), subSize);
-    ctx.fillText('www.matthijsvanmeurs.nl', textX + wsub + 22, y);
+  y = y + lh + tussen + subSize;
+  ctx.font = font(INTER(500), subSize);
+  ctx.fillStyle = MUTED;
+  ctx.fillText(sub, textX, y);
+  const wsub = ctx.measureText(sub).width;
+  ctx.font = font(INTER(600), subSize);
+  ctx.fillStyle = PAPER;
+  ctx.fillText(url, textX + wsub + Math.round(subSize * 1.2), y);
+
+  return c;
+}
+
+/* ---------------- VOORBEELD: banner met profielfoto eroverheen ---------------- */
+// Alleen om te controleren, niet om te uploaden.
+async function mockup(bannerCanvas, soort) {
+  const CW = 1128;                                   // breedte van de LinkedIn-kaart
+  const bh = Math.round(bannerCanvas.height * (CW / bannerCanvas.width));
+  const onder = soort === 'profiel' ? 150 : 210;
+  const c = newCanvas(CW, bh + onder), ctx = c.getContext('2d');
+
+  ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, CW, bh + onder);
+  ctx.drawImage(bannerCanvas, 0, 0, CW, bh);
+
+  if (soort === 'profiel') {
+    // ronde profielfoto, linksonder, half over de banner heen
+    const d = 152, cx = 24 + d / 2, cy = bh;
+    const foto = await loadImage('/assets/img/matthijs-van-meurs-portret.jpg');
+    ctx.save();
+    ctx.beginPath(); ctx.arc(cx, cy, d / 2 + 5, 0, Math.PI * 2);
+    ctx.fillStyle = '#FFFFFF'; ctx.fill();
+    ctx.beginPath(); ctx.arc(cx, cy, d / 2, 0, Math.PI * 2); ctx.clip();
+    const s = Math.max(d / foto.width, d / foto.height);
+    ctx.drawImage(foto, cx - foto.width * s / 2, cy - d / 2 - 10, foto.width * s, foto.height * s);
+    ctx.restore();
+    ctx.fillStyle = INK; ctx.font = font(SORA(700), 26);
+    ctx.fillText('Matthijs van Meurs', 24, bh + 108);
   } else {
-    // twee grote regels plus een subregel
-    const r1 = 'Je team gebruikt al AI.';
-    const r2 = 'Alleen weet niemand hoe.';
-    const kopSize = Math.min(
-      fitSize(ctx, r1, SORA(700), availW),
-      fitSize(ctx, r2, SORA(700), availW),
-      62
-    );
-    const lh = kopSize * 1.14;
-    const subSize = Math.round(kopSize * 0.34);
-    const totaal = lh * 2 + 26 + subSize;
-    let y = (H - totaal) / 2 + kopSize * 0.84;
-
-    ctx.font = font(SORA(700), kopSize);
-    ctx.fillStyle = PAPER;
-    ctx.fillText(r1, textX, y);
-    ctx.fillStyle = ORANGE;
-    ctx.fillText(r2, textX, y + lh);
-
-    y = y + lh + 26 + subSize;
-    ctx.font = font(INTER(500), subSize);
-    ctx.fillStyle = MUTED;
-    const sub = 'AI-training, workshops en keynotes';
-    ctx.fillText(sub, textX, y);
-    const wsub = ctx.measureText(sub).width;
-    ctx.font = font(INTER(600), subSize);
-    ctx.fillStyle = PAPER;
-    ctx.fillText('www.matthijsvanmeurs.nl', textX + wsub + 26, y);
+    // vierkant logo, linksonder, half over de banner heen
+    const d = 160, x = 24, yy = bh - d / 2;
+    const logo = logoNaam();
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(x - 6, yy - 6, d + 12, d + 12);
+    ctx.drawImage(logo, x, yy, d, d);
+    ctx.fillStyle = INK; ctx.font = font(SORA(700), 26);
+    ctx.fillText('Matthijs van Meurs', x, yy + d + 34);
   }
+
+  ctx.fillStyle = '#9aa3b2'; ctx.font = font(INTER(500), 15);
+  ctx.fillText('voorbeeld van de weergave op LinkedIn, niet uploaden', 24, c.height - 16);
   return c;
 }
 
@@ -248,6 +281,11 @@ window.maakAlles = async function () {
 
   const c4 = await banner(1584, 396, 'foto');      show(c4, 'profiel foto');
   log.push(await opslaan(c4, 'banner-profiel-1584x396-foto.jpg', 'image/jpeg', 0.92));
+
+  const m1 = await mockup(c3, 'profiel');        show(m1, 'voorbeeld profiel');
+  log.push(await opslaan(m1, 'voorbeeld-profiel.png'));
+  const m2 = await mockup(c1, 'bedrijf');        show(m2, 'voorbeeld bedrijfspagina');
+  log.push(await opslaan(m2, 'voorbeeld-bedrijfspagina.png'));
 
   return log;
 };

@@ -17,8 +17,16 @@ LinkedIn vraagt minimaal 300x300. Beide bestanden zijn 400x400 en vierkant.
 - `banner-profiel-1584x396-huisstijl.png`
 - `banner-profiel-1584x396-foto.jpg`
 
-De tekst begint bewust naar rechts. LinkedIn legt je profielfoto of logo over de
-linkeronderhoek van de omslag heen; die hoek is daarom leeg gelaten.
+## Vrije zone links
+LinkedIn legt je profielfoto (persoonlijk) of je logo (bedrijfspagina) over de
+linkerkant van de omslag heen. De linker 27 procent is daarom volledig vrij van
+tekst gehouden. De oranje balk markeert precies waar die zone ophoudt.
+
+Controleer het zelf met de twee voorbeelden:
+- `voorbeeld-profiel.png`
+- `voorbeeld-bedrijfspagina.png`
+
+Die twee zijn alleen bedoeld om te kijken. Niet uploaden.
 
 ## Opnieuw maken of aanpassen
 De beelden worden getekend door de browser, omdat de lettertypen niet lokaal
